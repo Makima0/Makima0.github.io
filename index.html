@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-11-19 Thu 22:32 -->
+<!-- 2020-11-20 Fri 03:02 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lisp 游戏开发入门 (Fennel &amp;&amp; Love2d)</title>
@@ -16,7 +16,22 @@
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#org1c36d9a">TL;DR</a></li>
-<li><a href="#org96beab3">开发环境设置</a></li>
+<li><a href="#org96beab3">开发环境设置</a>
+<ul>
+<li><a href="#org249ae37">目录结构</a></li>
+<li><a href="#orgd88602b">Hello World!</a></li>
+</ul>
+</li>
+<li><a href="#org9649201">显示图片</a></li>
+<li><a href="#org306bb32"><span class="todo TODO">TODO</span> 让图片移动</a></li>
+<li><a href="#org13c9fc0"><span class="todo TODO">TODO</span> 使用键盘与鼠标</a></li>
+<li><a href="#orgc68ffa6"><span class="todo TODO">TODO</span> 使用插件</a></li>
+<li><a href="#org98a6b54"><span class="todo TODO">TODO</span> 编写多人游戏</a></li>
+<li><a href="#org6576cfd"><span class="todo TODO">TODO</span> Fennel 基础</a>
+<ul>
+<li><a href="#orgd30fe9f">斐波那契序列</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -42,9 +57,9 @@ Fennel is a lisp that compiles to Lua. It aims to be easy to use, expressive, an
 </blockquote>
 <p>
 <span class="underline">3. 为什么要写这篇文章</span><br>
-因为有关Fennel的文章非常少，有关Fennel+Love2d组合的文章更是几乎没有，Fennel指南也有点不堪入目。所以我在此记录一些小技巧与坑。<br>
+因为有关Fennel的文章非常少，有关Fennel+Love2d组合的文章更是几乎没有，Fennel<a href="https://github.com/bakpakin/Fennel/blob/main/tutorial.md">教程</a>也有点不堪入目。所以我在此记录一些小技巧与坑。寻找有趣的人<br>
 <span class="underline">4. 为什么选用Fennel与Love2d</span><br>
-为什么使用Fennel？理由如它的<a href="https://github.com/bakpakin/Fennel/blob/main/README.md"> README</a> 所说的一样。<br>
+为什么使用Fennel？理由如它的<a href="https://github.com/bakpakin/Fennel/blob/main/README.md"> README</a> 所说的一样，并且有趣。<br>
 为什么使用Love2d？曾几何时 看着其它游戏引擎的教程 首先都是教你引擎UI的这个按钮是干什么的 那个按钮是干什么的 节点怎么添加 应该用鼠标点这点那 然后还要熟悉一堆引擎自身的概念，搞的我云里雾里。<br>
 对我来说Love2d最大的优点就是不需要再去强迫自己学习太多新东西。Love2d推荐使用其它非常优秀的工具如Aseprite Tiled等组合成你的“IDE” 并且随时都可以拿出来写写 不管是电脑还是手机 只要安装了Love2d，随意打开一个编辑器即可开始开发。<br>
 </p>
@@ -53,15 +68,177 @@ Fennel is a lisp that compiles to Lua. It aims to be easy to use, expressive, an
 <div id="outline-container-org96beab3" class="outline-2">
 <h2 id="org96beab3">开发环境设置</h2>
 <div class="outline-text-2" id="text-org96beab3">
+</div>
+<div id="outline-container-org249ae37" class="outline-3">
+<h3 id="org249ae37">目录结构</h3>
+<div class="outline-text-3" id="text-org249ae37">
+<pre class="example">
+├── lib
+│   ├── fennel
+│   └── fennel.lua
+├── main.lua
+├── Makefile
+└── wrap.fnl
+</pre>
+<p>
+<code>lib</code> 目录用来存放fennel和一些插件<br>
+<code>main.lua</code> love2d会优先读取这个文件，其它作用后面会说到<br>
+</p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">(set-face-attribute 'default nil :height 130)
+<pre class="src src-lua">-- Bootstrap the compiler
+fennel = require("lib.fennel")
+table.insert(package.loaders, fennel.make_searcher({correlate=true}))   
+-- Require our Fennel source file
+require("wrap")
+</pre>
+</div>
+<p>
+<code>Makefile</code> 方便编译打包之类的 暂时先写个最小的<br>
+</p>
+<div class="org-src-container">
+<pre class="src src-makefile">LOVE_VERSION=11.3
+FENNEL_VERSION=0.7.0
+AUTHOR="keke"
+
+LIBS := $(wildcard lib/*)
+LUA := $(wildcard *.lua)
+SRC := $(wildcard *.fnl)
+OUT := $(patsubst %.fnl,%.lua,$(SRC))
+
+run: $(OUT) ; love .
+
+count: ; cloc *.fnl --force-lang=clojure
+
+clean: ; rm -rf $(OUT)
+
+cleansrc: ; rm -rf $(OUT)
+
+%.lua: %.fnl; lua lib/fennel --compile --correlate $&lt; &gt; $@
+</pre>
+</div>
+<p>
+<code>wrap.fnl</code> 我们写的代码<br>
+</p>
+</div>
+</div>
+<div id="outline-container-orgd88602b" class="outline-3">
+<h3 id="orgd88602b">Hello World!</h3>
+<div class="outline-text-3" id="text-orgd88602b">
+<p>
+我们在 <code>wrap.fnl</code> 中写入<br>
+</p>
+<div class="org-src-container">
+<pre class="src src-fennel">(fn love.draw []
+(love.graphics.print "Hello World!"))
+</pre>
+</div>
+<p>
+运行make如果弹出一个窗口 左上角显示Hello World,那么你的开发环境就完全没问题啦<br>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org9649201" class="outline-2">
+<h2 id="org9649201">显示图片</h2>
+<div class="outline-text-2" id="text-org9649201">
+<blockquote>
+<p>
+love2d有一套自己的回调函数，主要由load，update和draw构成，游戏的主循环将发生在这之间。<br>
+游戏主循环-更新游戏的逻辑，绘制游戏的图像，在程序实现中是一个循环体，程序通过不断地执行这些操作来支持游戏的正常运行。<br>
+</p>
+</blockquote>
+<div class="org-src-container">
+<pre class="src src-fennel">(fn love.load [])     ;;资源加载回调函数，仅初始化时调用一次
+(fn love.update [dt]) ;;更新回调函数，每周期调用
+(fn love.draw [])     ;;绘图回调函数，每周期调用
+(fn love.keypressed [key]) ;;键盘检测回调函数，当键盘事件触发是调用
+(fn love.mousepressed [x,y,key]) ;;回调函数释放鼠标按钮时触发
+</pre>
+</div>
+<p>
+对应到Lua就是<br>
+</p>
+<div class="org-src-container">
+<pre class="src src-lua">function love.load()
+end
+function love.update(dt)
+end
+function love.draw()
+end
+function love.keypressed(key)
+end
+function love.mousepressed(x,y,key)
+end
+</pre>
+</div>
+<p>
+这一章节我们将在Love2d中显示第一张图片，我们将图片放在项目目录下 命名为 <code>1.png</code><br>
+首先，游戏中的资源，需要加载到内存中，存储在一个变量内，以便我们调用它。但资源通常只需要加载一遍，love2d中的load回调函数只会在运行过程中调用一次，所以我们在这里面编写我们的代码。<br>
+</p>
+<div class="org-src-container">
+<pre class="src src-fennel">(fn love.load []
+(global image (love.graphics.newImage "1.png")))
+(fn love.update [dt])
+(fn love.draw []
+(love.graphics.draw image 0 0))
+</pre>
+</div>
+<p>
+这可以成功运行并且无报错，虽然对应成lua是没有问题的， 但是 <code>lisp中这样写是不对的!</code> 方便入门先写成这样 对应的lua代码<br>
+</p>
+<div class="org-src-container">
+<pre class="src src-lua">function love.load()
+image = love.graphics.newImage("1.png")
+end
+function love.update(dt)
+end
+function love.draw()
+love.graphics.draw(image, 0, 0)
+end
+</pre>
+</div>
+<p>
+运行起来是这样的<br>
+<img src="./img/p.png" alt="p.png"><br>
+在平常所学的数学坐标系中，一般直角坐标系原点在左下角，但是程序中，我们规定屏幕的左上角为坐标的原点，也就是x=0，y=0。所以我们的图片会显示到左上角。<br>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org306bb32" class="outline-2">
+<h2 id="org306bb32"><span class="todo TODO">TODO</span> 让图片移动</h2>
+<div class="outline-text-2" id="text-org306bb32">
+<p>
+现在，我们可以尝试一下调用update回调函数，在屏幕上移动我们的图片。<br>
+</p>
+</div>
+</div>
+<div id="outline-container-org13c9fc0" class="outline-2">
+<h2 id="org13c9fc0"><span class="todo TODO">TODO</span> 使用键盘与鼠标</h2>
+</div>
+<div id="outline-container-orgc68ffa6" class="outline-2">
+<h2 id="orgc68ffa6"><span class="todo TODO">TODO</span> 使用插件</h2>
+</div>
+<div id="outline-container-org98a6b54" class="outline-2">
+<h2 id="org98a6b54"><span class="todo TODO">TODO</span> 编写多人游戏</h2>
+</div>
+<div id="outline-container-org6576cfd" class="outline-2">
+<h2 id="org6576cfd"><span class="todo TODO">TODO</span> Fennel 基础</h2>
+<div class="outline-text-2" id="text-org6576cfd">
+</div>
+<div id="outline-container-orgd30fe9f" class="outline-3">
+<h3 id="orgd30fe9f">斐波那契序列</h3>
+<div class="outline-text-3" id="text-orgd30fe9f">
+<div class="org-src-container">
+<pre class="src src-fennel">(fn fib [n] (if (&lt; n 2) n (+ (fib (- n 1)) (fib (- n 2)))))
 </pre>
 </div>
 </div>
 </div>
 </div>
+</div>
 <div id="postamble" class="status">
-<p class="date">Created: 2020-11-19 Thu 22:32</p>
+<p class="date">Created: 2020-11-20 Fri 03:02</p>
 </div>
 </body>
 </html>
