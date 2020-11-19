@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2020-11-19 Thu 21:20 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lisp 游戏开发入门 (Fennel &amp;&amp; Love2d)</title>
+<meta name="generator" content="Org mode">
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<div id="content">
+<h1 class="title">Lisp 游戏开发入门 (Fennel &amp;&amp; Love2d)</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org1c36d9a">TL;DR</a></li>
+<li><a href="#org96beab3">开发环境设置</a></li>
+</ul>
+</div>
+</div>
+<img
+src="https://love2d.org/style/logo_h.png"
+width="50%"
+style=""
+/>
+
+<div id="outline-container-org1c36d9a" class="outline-2">
+<h2 id="org1c36d9a">TL;DR</h2>
+<div class="outline-text-2" id="text-org1c36d9a">
+<p>
+<span class="underline">1. Love2d是什么</span><br>
+</p>
+<blockquote>
+<p>
+LÖVE (or Love2D) is an open-source cross-platform engine for developing 2D video games. The engine is written in C++ and uses Lua as its scripting language. It is published under the zlib license.<br>
+</p>
+</blockquote>
+<p>
+与其说是游戏引擎 由于Love2d非常小巧(AppImage仅有不到5MB) 我觉得它更像一个框架 与其它游戏引擎相比它缺少很多东西。但是麻雀虽小五脏俱全，基本功能都有，并且有大量插件可以使用。<br>
+<span class="underline">2. Fennel是什么</span><br>
+</p>
+<blockquote>
+<p>
+Fennel is a lisp that compiles to Lua. It aims to be easy to use, expressive, and has almost zero overhead compared to handwritten Lua.<br>
+</p>
+</blockquote>
+<p>
+<span class="underline">3. 为什么要写这篇文章</span><br>
+因为有关Fennel的文章非常少，有关Fennel+Love2d组合的文章更是几乎没有，Fennel指南也有点不堪入目。所以我在此记录一些小技巧与坑。<br>
+<span class="underline">4. 为什么选用Fennel与Love2d</span><br>
+为什么使用Fennel？理由如它的<a href="https://github.com/bakpakin/Fennel/blob/main/README.md"> README</a> 所说的一样。<br>
+为什么使用Love2d？曾几何时 看着其它游戏引擎的教程 首先都是教你引擎UI的这个按钮是干什么的 那个按钮是干什么的 节点怎么添加 应该用鼠标点这点那 然后还要熟悉一堆引擎自身的概念，搞的我云里雾里。<br>
+对我来说Love2d最大的优点就是不需要再去强迫自己学习太多新东西，使用其它非常优秀的工具如Aseprite Tiled等组合成你的专属“IDE” 并且随时都可以拿出来写写 不管是电脑还是手机 只要安装了Love2d，随意打开一个编辑器即可开始开发。<br>
+</p>
+</div>
+</div>
+<div id="outline-container-org96beab3" class="outline-2">
+<h2 id="org96beab3">开发环境设置</h2>
+<div class="outline-text-2" id="text-org96beab3">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(set-face-attribute 'default nil :height 130)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2020-11-19 Thu 21:20</p>
+</div>
+</body>
+</html>
