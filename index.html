@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-11-20 Fri 03:05 -->
+<!-- 2020-11-22 Sun 02:28 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lisp 游戏开发入门 (Fennel &amp;&amp; Love2d)</title>
@@ -23,18 +23,32 @@
 </ul>
 </li>
 <li><a href="#org9649201">显示图片</a></li>
-<li><a href="#org306bb32"><span class="todo TODO">TODO</span> 让图片移动</a></li>
-<li><a href="#org13c9fc0"><span class="todo TODO">TODO</span> 使用键盘与鼠标</a></li>
-<li><a href="#orgc68ffa6"><span class="todo TODO">TODO</span> 使用插件</a></li>
-<li><a href="#org98a6b54"><span class="todo TODO">TODO</span> 编写多人游戏</a></li>
-<li><a href="#org6576cfd"><span class="todo TODO">TODO</span> Fennel 基础</a>
+<li><a href="#org306bb32">让图片移动</a>
 <ul>
-<li><a href="#orgd30fe9f">斐波那契序列</a></li>
+<li><a href="#org7e6b338">PS</a></li>
+</ul>
+</li>
+<li><a href="#orga859d11"><span class="todo TODO">TODO</span> 序列帧动画</a></li>
+<li><a href="#org13c9fc0"><span class="todo TODO">TODO</span> 使用键盘与鼠标</a></li>
+<li><a href="#orgdb34f62"><span class="todo TODO">TODO</span> 碰撞检测</a></li>
+<li><a href="#org45b5790"><span class="todo TODO">TODO</span> 瓷砖地图</a></li>
+<li><a href="#org6eda62d"><span class="todo TODO">TODO</span> 骨骼运动</a></li>
+<li><a href="#org98a6b54"><span class="todo TODO">TODO</span> 编写多人游戏</a></li>
+<li><a href="#orge206a71"><span class="todo TODO">TODO</span> 其它</a>
+<ul>
+<li><a href="#org933ba5c"><span class="todo TODO">TODO</span> Fennel基础</a></li>
+<li><a href="#orgb073102"><span class="todo TODO">TODO</span> Aseprite</a></li>
+<li><a href="#orgc9c4551"><span class="todo TODO">TODO</span> Tiled</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
+<head>
+<style type="text/css">
+video{max-width:100%}
+</style>
+<head>
 <div id="outline-container-org1c36d9a" class="outline-2">
 <h2 id="org1c36d9a">TL;DR</h2>
 <div class="outline-text-2" id="text-org1c36d9a">
@@ -204,31 +218,48 @@ end
 </p>
 </div>
 </div>
-
 <div id="outline-container-org306bb32" class="outline-2">
-<h2 id="org306bb32"><span class="todo TODO">TODO</span> 让图片移动</h2>
+<h2 id="org306bb32">让图片移动</h2>
 <div class="outline-text-2" id="text-org306bb32">
 <p>
 现在，我们可以尝试一下调用update回调函数，在屏幕上移动我们的图片。<br>
 </p>
+<div class="org-src-container">
+<pre class="src src-fennel">(local image (love.graphics.newImage "1.png"))
+(var (x y) 0)
+(fn love.load [])
+(fn love.update [dt]
+(set x (+ x 100)))
+(fn love.draw []
+(love.graphics.draw image x y))
+</pre>
 </div>
+<p>
+运行后我们可以看到图片一下从屏幕上闪过去，这是因为运行的速率在默认情况下是每秒60次，也就是说，图片之所以一瞬间就移出了屏幕，是因为图片移动得太快了，一秒钟的时间就移动了6000像素，6000px/s<br>
+</p>
+<blockquote>
+<p>
+100（我们设置的移动速度）x60（更新速度）=6000（像素）<br>
+</p>
+</blockquote>
+<p>
+<code>dt</code> 参数所代表的是每帧的间隔，我们需要在我们的速度上乘上该时间，也就是每秒100像素，100px/s<br>
+我们把它改成 <code>(set x (+ x 1))</code> 试试，即每秒移动6像素，现在看起来是这样的<br>
+我们可以通过在 <code>love.load</code> 中加入 <code>(love.window.setMode 500 500)</code> 来改变窗口大小， <code>(love.window.setTitle "hello title")</code> 来改变标题<br>
+</p>
+<video controls="controls"><source type="video/mp4" src="img/love1.mp4" /></video>
 </div>
-<div id="outline-container-org13c9fc0" class="outline-2">
-<h2 id="org13c9fc0"><span class="todo TODO">TODO</span> 使用键盘与鼠标</h2>
-</div>
-<div id="outline-container-orgc68ffa6" class="outline-2">
-<h2 id="orgc68ffa6"><span class="todo TODO">TODO</span> 使用插件</h2>
-</div>
-<div id="outline-container-org98a6b54" class="outline-2">
-<h2 id="org98a6b54"><span class="todo TODO">TODO</span> 编写多人游戏</h2>
-</div>
-<div id="outline-container-org6576cfd" class="outline-2">
-<h2 id="org6576cfd"><span class="todo TODO">TODO</span> Fennel 基础</h2>
-<div class="outline-text-2" id="text-org6576cfd">
-</div>
-<div id="outline-container-orgd30fe9f" class="outline-3">
-<h3 id="orgd30fe9f">斐波那契序列</h3>
-<div class="outline-text-3" id="text-orgd30fe9f">
+<div id="outline-container-org7e6b338" class="outline-3">
+<h3 id="org7e6b338">PS</h3>
+<div class="outline-text-3" id="text-org7e6b338">
+<blockquote>
+<p>
+在Fennel中，我们可以通过 <code>let local var</code> 来设置局部变量，通过 <code>global</code> 来设置全局变量，通过 <code>fn</code> 来设置函数，通过 <code>var</code> 可以更改本地的值，lisp中使用<a href="https://zh.wikipedia.org/wiki/%E6%B3%A2%E5%85%B0%E8%A1%A8%E7%A4%BA%E6%B3%95">前缀表达式(波兰式)</a> 例如前缀表达式 <code>+ 1 1</code> 等同于中缀表达式 <code>1+1</code><br>
+</p>
+</blockquote>
+<p>
+斐波那契序列的例子<br>
+</p>
 <div class="org-src-container">
 <pre class="src src-fennel">(fn fib [n] (if (&lt; n 2) n (+ (fib (- n 1)) (fib (- n 2)))))
 </pre>
@@ -236,9 +267,41 @@ end
 </div>
 </div>
 </div>
+<div id="outline-container-orga859d11" class="outline-2">
+<h2 id="orga859d11"><span class="todo TODO">TODO</span> 序列帧动画</h2>
+</div>
+<div id="outline-container-org13c9fc0" class="outline-2">
+<h2 id="org13c9fc0"><span class="todo TODO">TODO</span> 使用键盘与鼠标</h2>
+</div>
+<div id="outline-container-orgdb34f62" class="outline-2">
+<h2 id="orgdb34f62"><span class="todo TODO">TODO</span> 碰撞检测</h2>
+</div>
+<div id="outline-container-org45b5790" class="outline-2">
+<h2 id="org45b5790"><span class="todo TODO">TODO</span> 瓷砖地图</h2>
+</div>
+<div id="outline-container-org6eda62d" class="outline-2">
+<h2 id="org6eda62d"><span class="todo TODO">TODO</span> 骨骼运动</h2>
+</div>
+<div id="outline-container-org98a6b54" class="outline-2">
+<h2 id="org98a6b54"><span class="todo TODO">TODO</span> 编写多人游戏</h2>
+</div>
+<div id="outline-container-orge206a71" class="outline-2">
+<h2 id="orge206a71"><span class="todo TODO">TODO</span> 其它</h2>
+<div class="outline-text-2" id="text-orge206a71">
+</div>
+<div id="outline-container-org933ba5c" class="outline-3">
+<h3 id="org933ba5c"><span class="todo TODO">TODO</span> Fennel基础</h3>
+</div>
+<div id="outline-container-orgb073102" class="outline-3">
+<h3 id="orgb073102"><span class="todo TODO">TODO</span> Aseprite</h3>
+</div>
+<div id="outline-container-orgc9c4551" class="outline-3">
+<h3 id="orgc9c4551"><span class="todo TODO">TODO</span> Tiled</h3>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2020-11-20 Fri 03:05</p>
+<p class="date">Created: 2020-11-22 Sun 02:28</p>
 </div>
 </body>
 </html>
