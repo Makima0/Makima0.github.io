@@ -1,0 +1,19 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style.css" />
+#+OPTIONS: html-postamble:nil \n:t
+#+TITLE: About
+#+BEGIN_EXPORT html
+<font size=3>
+#+END_EXPORT
+半自由职业者，三天打渔两天晒网，并不讨厌工作，讨厌气氛
+喜欢：
+动漫，游戏，音乐，编程，括号
+讨厌：
+吸烟，php
+极度讨厌：
+Python，Huawei
+本站使用 [[https://www.gnu.org/software/emacs/][Emacs 28.0.50]] or [[https://orgmode.org/][Org-mode 9.3]] 创建，托管于 [[https://github.com/Makima0/Makima0.github.io][Github]]
+#+BEGIN_EXPORT html
+</font>
+#+END_EXPORT
+
+

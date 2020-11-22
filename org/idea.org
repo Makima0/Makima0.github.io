@@ -1,0 +1,33 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style.css" />
+#+OPTIONS: html-postamble:nil \n:t
+#+TITLE: 闲言碎语
+*** <2020-11-23 Mon>
+    #+begin_quote
+    甜食吃多了好恶心。。。
+    #+end_quote
+*** <2020-11-22 Sun>
+    #+begin_quote
+    要是有人一起出去玩雪就好了
+    #+end_quote
+*** <2020-11-20 Fri>
+    #+begin_quote
+    不想上班
+    #+end_quote
+*** <2020-11-11 Wed>
+    #+begin_quote
+    最近一下班就去网吧，和上学的时候一样哈哈哈
+    #+end_quote
+*** <2020-10-01 Thu>
+    #+begin_quote
+    《ハイスコアガール》小春别哭
+    #+end_quote
+*** <2020-09-17 Thu>
+    #+begin_quote
+    那个蓝人要来了吗？
+    #+end_quote
+** <2000-10-01 Sun>
+   #+begin_quote
+   生日
+   #+end_quote
+
+* 

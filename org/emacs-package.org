@@ -1,0 +1,11 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style.css" />
+#+OPTIONS: author:nil date:nil creator:nil \n:t
+#+TITLE: Emacs精品package介绍以及使用
+* ivy swiper counsel wgrep multiple-cursors
+* telega
+* magit
+* mini-modeline
+* doom-themes
+* company company-box
+* emacs-rime
+* webkit
