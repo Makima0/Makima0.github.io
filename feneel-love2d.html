@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-11-23 Mon 06:03 -->
+<!-- 2020-11-27 Fri 17:40 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lisp 游戏开发入门 (Fennel &amp;&amp; Love2d)</title>
@@ -15,30 +15,35 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgda5dcd1">TL;DR</a></li>
-<li><a href="#org55c5457">开发环境设置</a>
+<li><a href="#orgc0775dd">TL;DR</a></li>
+<li><a href="#org6dd1501">开发环境设置</a>
 <ul>
-<li><a href="#org8e7e88d">目录结构</a></li>
-<li><a href="#org78677c6">Hello World!</a></li>
+<li><a href="#org8924bad">目录结构</a></li>
+<li><a href="#org60a3e1b">Hello World!</a></li>
 </ul>
 </li>
-<li><a href="#org16375a1">显示图片</a></li>
-<li><a href="#org2d10d4c">让图片移动</a>
+<li><a href="#org7a6e80d">显示图片</a></li>
+<li><a href="#org2cd8c49">让图片移动</a>
 <ul>
-<li><a href="#org48da510">PS</a></li>
+<li><a href="#org79c02de">PS</a></li>
 </ul>
 </li>
-<li><a href="#org4040bda"><span class="todo TODO">TODO</span> 序列帧动画</a></li>
-<li><a href="#orgc0228fc"><span class="todo TODO">TODO</span> 使用键盘与鼠标</a></li>
-<li><a href="#org4af5d60"><span class="todo TODO">TODO</span> 碰撞检测</a></li>
-<li><a href="#orgfcd6942"><span class="todo TODO">TODO</span> 瓷砖地图</a></li>
-<li><a href="#org29c1e3f"><span class="todo TODO">TODO</span> 骨骼运动</a></li>
-<li><a href="#org4197c35"><span class="todo TODO">TODO</span> 编写多人游戏</a></li>
-<li><a href="#orge1d8aad"><span class="todo TODO">TODO</span> 其它</a>
+<li><a href="#org06531a0"><span class="todo TODO">TODO</span> 序列帧动画</a></li>
+<li><a href="#orgef066d9"><span class="todo TODO">TODO</span> 使用键盘与鼠标</a></li>
+<li><a href="#orgddde98a"><span class="todo TODO">TODO</span> 碰撞检测</a></li>
+<li><a href="#org3c2d920"><span class="todo TODO">TODO</span> 瓷砖地图</a></li>
+<li><a href="#org9cdaa34"><span class="todo TODO">TODO</span> 骨骼运动</a></li>
+<li><a href="#orgf5a825b"><span class="todo TODO">TODO</span> 编写多人游戏</a></li>
+<li><a href="#org77108e4"><span class="todo TODO">TODO</span> 其它</a>
 <ul>
-<li><a href="#org192c896"><span class="todo TODO">TODO</span> Fennel基础</a></li>
-<li><a href="#orgf7cda29"><span class="todo TODO">TODO</span> Aseprite</a></li>
-<li><a href="#orgc531e05"><span class="todo TODO">TODO</span> Tiled</a></li>
+<li><a href="#org139d719"><span class="todo TODO">TODO</span> 跟着例子学Fennel</a>
+<ul>
+<li><a href="#org0a1f08f">斐波那契序列</a></li>
+<li><a href="#orge533a19">发送http请求</a></li>
+</ul>
+</li>
+<li><a href="#orgfa9997f"><span class="todo TODO">TODO</span> Aseprite</a></li>
+<li><a href="#orgf5785a0"><span class="todo TODO">TODO</span> Tiled</a></li>
 </ul>
 </li>
 </ul>
@@ -49,9 +54,9 @@
 video{max-width:100%}
 </style>
 <head>
-<div id="outline-container-orgda5dcd1" class="outline-2">
-<h2 id="orgda5dcd1">TL;DR</h2>
-<div class="outline-text-2" id="text-orgda5dcd1">
+<div id="outline-container-orgc0775dd" class="outline-2">
+<h2 id="orgc0775dd">TL;DR</h2>
+<div class="outline-text-2" id="text-orgc0775dd">
 <p>
 <span class="underline">1. Love2d是什么</span><br>
 </p>
@@ -79,13 +84,13 @@ Fennel is a lisp that compiles to Lua. It aims to be easy to use, expressive, an
 </p>
 </div>
 </div>
-<div id="outline-container-org55c5457" class="outline-2">
-<h2 id="org55c5457">开发环境设置</h2>
-<div class="outline-text-2" id="text-org55c5457">
+<div id="outline-container-org6dd1501" class="outline-2">
+<h2 id="org6dd1501">开发环境设置</h2>
+<div class="outline-text-2" id="text-org6dd1501">
 </div>
-<div id="outline-container-org8e7e88d" class="outline-3">
-<h3 id="org8e7e88d">目录结构</h3>
-<div class="outline-text-3" id="text-org8e7e88d">
+<div id="outline-container-org8924bad" class="outline-3">
+<h3 id="org8924bad">目录结构</h3>
+<div class="outline-text-3" id="text-org8924bad">
 <pre class="example">
 ├── lib
 │   ├── fennel
@@ -135,9 +140,9 @@ cleansrc: ; rm -rf $(OUT)
 </p>
 </div>
 </div>
-<div id="outline-container-org78677c6" class="outline-3">
-<h3 id="org78677c6">Hello World!</h3>
-<div class="outline-text-3" id="text-org78677c6">
+<div id="outline-container-org60a3e1b" class="outline-3">
+<h3 id="org60a3e1b">Hello World!</h3>
+<div class="outline-text-3" id="text-org60a3e1b">
 <p>
 我们在 <code>wrap.fnl</code> 中写入<br>
 </p>
@@ -152,9 +157,9 @@ cleansrc: ; rm -rf $(OUT)
 </div>
 </div>
 </div>
-<div id="outline-container-org16375a1" class="outline-2">
-<h2 id="org16375a1">显示图片</h2>
-<div class="outline-text-2" id="text-org16375a1">
+<div id="outline-container-org7a6e80d" class="outline-2">
+<h2 id="org7a6e80d">显示图片</h2>
+<div class="outline-text-2" id="text-org7a6e80d">
 <blockquote>
 <p>
 love2d有一套自己的回调函数，主要由load，update和draw构成，游戏的主循环将发生在这之间。<br>
@@ -218,9 +223,9 @@ end
 </p>
 </div>
 </div>
-<div id="outline-container-org2d10d4c" class="outline-2">
-<h2 id="org2d10d4c">让图片移动</h2>
-<div class="outline-text-2" id="text-org2d10d4c">
+<div id="outline-container-org2cd8c49" class="outline-2">
+<h2 id="org2cd8c49">让图片移动</h2>
+<div class="outline-text-2" id="text-org2cd8c49">
 <p>
 现在，我们可以尝试一下调用update回调函数，在屏幕上移动我们的图片。<br>
 </p>
@@ -249,59 +254,63 @@ end
 </p>
 <video controls="controls"><source type="video/mp4" src="img/love1.mp4" /></video>
 </div>
-<div id="outline-container-org48da510" class="outline-3">
-<h3 id="org48da510">PS</h3>
-<div class="outline-text-3" id="text-org48da510">
+<div id="outline-container-org79c02de" class="outline-3">
+<h3 id="org79c02de">PS</h3>
+<div class="outline-text-3" id="text-org79c02de">
 <blockquote>
 <p>
-在Fennel中，我们可以通过 <code>let local var</code> 来设置局部变量，通过 <code>global</code> 来设置全局变量，通过 <code>fn</code> 来设置函数，通过 <code>var</code> 可以更改本地的值，lisp中使用<a href="https://zh.wikipedia.org/wiki/%E6%B3%A2%E5%85%B0%E8%A1%A8%E7%A4%BA%E6%B3%95">前缀表达式(波兰式)</a> 例如前缀表达式 <code>+ 1 1</code> 等同于中缀表达式 <code>1+1</code><br>
+在Fennel中，我们可以通过 <code>fn</code> 创建一个lambda函数(也被成为闭包), 通过 <code>let local var</code> 来设置局部变量，通过 <code>global</code> 来设置全局变量，通过 <code>fn</code> 来设置函数，通过 <code>var</code> 可以更改本地的值，lisp中使用<a href="https://zh.wikipedia.org/wiki/%E6%B3%A2%E5%85%B0%E8%A1%A8%E7%A4%BA%E6%B3%95">前缀表达式(波兰式)</a> 例如前缀表达式 <code>+ 1 1</code> 等同于中缀表达式 <code>1+1</code><br>
 </p>
 </blockquote>
-<p>
-斐波那契序列的例子<br>
-</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org06531a0" class="outline-2">
+<h2 id="org06531a0"><span class="todo TODO">TODO</span> 序列帧动画</h2>
+</div>
+<div id="outline-container-orgef066d9" class="outline-2">
+<h2 id="orgef066d9"><span class="todo TODO">TODO</span> 使用键盘与鼠标</h2>
+</div>
+<div id="outline-container-orgddde98a" class="outline-2">
+<h2 id="orgddde98a"><span class="todo TODO">TODO</span> 碰撞检测</h2>
+</div>
+<div id="outline-container-org3c2d920" class="outline-2">
+<h2 id="org3c2d920"><span class="todo TODO">TODO</span> 瓷砖地图</h2>
+</div>
+<div id="outline-container-org9cdaa34" class="outline-2">
+<h2 id="org9cdaa34"><span class="todo TODO">TODO</span> 骨骼运动</h2>
+</div>
+<div id="outline-container-orgf5a825b" class="outline-2">
+<h2 id="orgf5a825b"><span class="todo TODO">TODO</span> 编写多人游戏</h2>
+</div>
+<div id="outline-container-org77108e4" class="outline-2">
+<h2 id="org77108e4"><span class="todo TODO">TODO</span> 其它</h2>
+<div class="outline-text-2" id="text-org77108e4">
+</div>
+<div id="outline-container-org139d719" class="outline-3">
+<h3 id="org139d719"><span class="todo TODO">TODO</span> 跟着例子学Fennel</h3>
+<div class="outline-text-3" id="text-org139d719">
+</div>
+<div id="outline-container-org0a1f08f" class="outline-4">
+<h4 id="org0a1f08f">斐波那契序列</h4>
+<div class="outline-text-4" id="text-org0a1f08f">
 <div class="org-src-container">
 <pre class="src src-fennel">(fn fib [n] (if (&lt; n 2) n (+ (fib (- n 1)) (fib (- n 2)))))
 </pre>
 </div>
 </div>
 </div>
-</div>
-<div id="outline-container-org4040bda" class="outline-2">
-<h2 id="org4040bda"><span class="todo TODO">TODO</span> 序列帧动画</h2>
-</div>
-<div id="outline-container-orgc0228fc" class="outline-2">
-<h2 id="orgc0228fc"><span class="todo TODO">TODO</span> 使用键盘与鼠标</h2>
-</div>
-<div id="outline-container-org4af5d60" class="outline-2">
-<h2 id="org4af5d60"><span class="todo TODO">TODO</span> 碰撞检测</h2>
-</div>
-<div id="outline-container-orgfcd6942" class="outline-2">
-<h2 id="orgfcd6942"><span class="todo TODO">TODO</span> 瓷砖地图</h2>
-</div>
-<div id="outline-container-org29c1e3f" class="outline-2">
-<h2 id="org29c1e3f"><span class="todo TODO">TODO</span> 骨骼运动</h2>
-</div>
-<div id="outline-container-org4197c35" class="outline-2">
-<h2 id="org4197c35"><span class="todo TODO">TODO</span> 编写多人游戏</h2>
-</div>
-<div id="outline-container-orge1d8aad" class="outline-2">
-<h2 id="orge1d8aad"><span class="todo TODO">TODO</span> 其它</h2>
-<div class="outline-text-2" id="text-orge1d8aad">
-</div>
-<div id="outline-container-org192c896" class="outline-3">
-<h3 id="org192c896"><span class="todo TODO">TODO</span> Fennel基础</h3>
-</div>
-<div id="outline-container-orgf7cda29" class="outline-3">
-<h3 id="orgf7cda29"><span class="todo TODO">TODO</span> Aseprite</h3>
-</div>
-<div id="outline-container-orgc531e05" class="outline-3">
-<h3 id="orgc531e05"><span class="todo TODO">TODO</span> Tiled</h3>
+<div id="outline-container-orge533a19" class="outline-4">
+<h4 id="orge533a19">发送http请求</h4>
 </div>
 </div>
+<div id="outline-container-orgfa9997f" class="outline-3">
+<h3 id="orgfa9997f"><span class="todo TODO">TODO</span> Aseprite</h3>
 </div>
-<div id="postamble" class="status">
-<p class="date">Created: 2020-11-23 Mon 06:03</p>
+<div id="outline-container-orgf5785a0" class="outline-3">
+<h3 id="orgf5785a0"><span class="todo TODO">TODO</span> Tiled</h3>
+</div>
+</div>
 </div>
 </body>
 </html>
