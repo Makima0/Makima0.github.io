@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-11-27 Fri 17:40 -->
+<!-- 2020-11-27 Fri 17:53 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>使用systemd-boot (Arch linux)</title>
@@ -15,25 +15,25 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgda735c7">TL;DR</a></li>
-<li><a href="#orgb7687e9">创建引导程序</a>
+<li><a href="#org1a966c3">TL;DR</a></li>
+<li><a href="#org22a2d43">创建引导程序</a>
 <ul>
-<li><a href="#org4f68c4d">编辑配置文件</a></li>
+<li><a href="#org7cbf068">编辑配置文件</a></li>
 </ul>
 </li>
-<li><a href="#org3ef56bd">其它</a>
+<li><a href="#orgb337f68">其它</a>
 <ul>
-<li><a href="#orgc3ed33d">无法保存屏幕亮度</a></li>
-<li><a href="#org59c8e15">休眠</a></li>
+<li><a href="#orgcad6e63">无法保存屏幕亮度</a></li>
+<li><a href="#orgb24bb06">休眠</a></li>
 </ul>
 </li>
-<li><a href="#org4848a5e">与本文无关/地图炮</a></li>
+<li><a href="#org4b2e5ac">与本文无关/地图炮</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgda735c7" class="outline-2">
-<h2 id="orgda735c7">TL;DR</h2>
-<div class="outline-text-2" id="text-orgda735c7">
+<div id="outline-container-org1a966c3" class="outline-2">
+<h2 id="org1a966c3">TL;DR</h2>
+<div class="outline-text-2" id="text-org1a966c3">
 <p>
 <span class="underline">systemd-boot的优点</span><br>
 快速，大多数linux发行版都预置，配置简单<br>
@@ -42,17 +42,17 @@
 </p>
 </div>
 </div>
-<div id="outline-container-orgb7687e9" class="outline-2">
-<h2 id="orgb7687e9">创建引导程序</h2>
-<div class="outline-text-2" id="text-orgb7687e9">
+<div id="outline-container-org22a2d43" class="outline-2">
+<h2 id="org22a2d43">创建引导程序</h2>
+<div class="outline-text-2" id="text-org22a2d43">
 <div class="org-src-container">
 <pre class="src src-bash">sudo bootctl --path=/boot install
 </pre>
 </div>
 </div>
-<div id="outline-container-org4f68c4d" class="outline-3">
-<h3 id="org4f68c4d">编辑配置文件</h3>
-<div class="outline-text-3" id="text-org4f68c4d">
+<div id="outline-container-org7cbf068" class="outline-3">
+<h3 id="org7cbf068">编辑配置文件</h3>
+<div class="outline-text-3" id="text-org7cbf068">
 <p>
 <code>/boot/loader/entries/youname.conf</code> <br>
 查看分区uuid <code>ls -l /dev/disk/by-partuuid</code> <br>
@@ -68,21 +68,21 @@ options root=PARTUUID=devuuid rw
 </div>
 </div>
 </div>
-<div id="outline-container-org3ef56bd" class="outline-2">
-<h2 id="org3ef56bd">其它</h2>
-<div class="outline-text-2" id="text-org3ef56bd">
+<div id="outline-container-orgb337f68" class="outline-2">
+<h2 id="orgb337f68">其它</h2>
+<div class="outline-text-2" id="text-orgb337f68">
 </div>
-<div id="outline-container-orgc3ed33d" class="outline-3">
-<h3 id="orgc3ed33d">无法保存屏幕亮度</h3>
-<div class="outline-text-3" id="text-orgc3ed33d">
+<div id="outline-container-orgcad6e63" class="outline-3">
+<h3 id="orgcad6e63">无法保存屏幕亮度</h3>
+<div class="outline-text-3" id="text-orgcad6e63">
 <p>
 尝试添加内核参数 <code>acpi_backlight=video</code> 到 <code>/boot/loader/entries/youname.conf</code> 例如<br>
 </p>
 </div>
 </div>
-<div id="outline-container-org59c8e15" class="outline-3">
-<h3 id="org59c8e15">休眠</h3>
-<div class="outline-text-3" id="text-org59c8e15">
+<div id="outline-container-orgb24bb06" class="outline-3">
+<h3 id="orgb24bb06">休眠</h3>
+<div class="outline-text-3" id="text-orgb24bb06">
 <ol class="org-ol">
 <li>添加内核参数 <code>resume=/dev/youswap</code> 到 <code>/boot/loader/entries/youname.conf</code><br></li>
 <li>编辑 <code>/etc/mkinitcpio.conf</code> 添加 <code>resume</code> 到 <code>HOOKS</code> 例如<br></li>
@@ -102,9 +102,9 @@ options root=PARTUUID=devuuid rw
 </div>
 </div>
 </div>
-<div id="outline-container-org4848a5e" class="outline-2">
-<h2 id="org4848a5e">与本文无关/地图炮</h2>
-<div class="outline-text-2" id="text-org4848a5e">
+<div id="outline-container-org4b2e5ac" class="outline-2">
+<h2 id="org4b2e5ac">与本文无关/地图炮</h2>
+<div class="outline-text-2" id="text-org4b2e5ac">
 <blockquote>
 <p>
 2020年还在常用桌面环境使用SysVinit的无非两种人，一种是宁可牺牲速度也要让系统略微干净那么一点的，另一种就是喜欢跟风还喜欢装逼的。<br>

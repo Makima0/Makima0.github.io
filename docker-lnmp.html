@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-11-27 Fri 17:40 -->
+<!-- 2020-11-27 Fri 17:53 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>使用docker搭建板砖环境 (Lnmp)</title>
@@ -15,45 +15,45 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org8b5c950">安装</a>
+<li><a href="#org57b779b">安装</a>
 <ul>
-<li><a href="#org6442a71">加入用户组</a></li>
-<li><a href="#org76233c5">加速源</a></li>
+<li><a href="#orgcbe552f">加入用户组</a></li>
+<li><a href="#org52436f7">加速源</a></li>
 </ul>
 </li>
-<li><a href="#orge48f7b2">拉取镜像</a></li>
-<li><a href="#org943cda2">创建项目</a>
+<li><a href="#orgab131e6">拉取镜像</a></li>
+<li><a href="#orgf88a56e">创建项目</a>
 <ul>
-<li><a href="#org89a9ec6">安装tp框架</a></li>
+<li><a href="#orgbf5e8d7">安装tp框架</a></li>
 </ul>
 </li>
-<li><a href="#org28ebd5c">启动容器</a></li>
-<li><a href="#org7eebb63">phpMyAdmin</a></li>
-<li><a href="#org2f23de1">容器停止后的启动顺序</a></li>
-<li><a href="#org2a3fea0">TL;DR</a></li>
+<li><a href="#org7481c27">启动容器</a></li>
+<li><a href="#org62dc045">phpMyAdmin</a></li>
+<li><a href="#org2144033">容器停止后的启动顺序</a></li>
+<li><a href="#org84fe8f5">TL;DR</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org8b5c950" class="outline-2">
-<h2 id="org8b5c950">安装</h2>
-<div class="outline-text-2" id="text-org8b5c950">
+<div id="outline-container-org57b779b" class="outline-2">
+<h2 id="org57b779b">安装</h2>
+<div class="outline-text-2" id="text-org57b779b">
 <div class="org-src-container">
 <pre class="src src-bash">sudo pacman -S docker
 </pre>
 </div>
 </div>
-<div id="outline-container-org6442a71" class="outline-3">
-<h3 id="org6442a71">加入用户组</h3>
-<div class="outline-text-3" id="text-org6442a71">
+<div id="outline-container-orgcbe552f" class="outline-3">
+<h3 id="orgcbe552f">加入用户组</h3>
+<div class="outline-text-3" id="text-orgcbe552f">
 <div class="org-src-container">
 <pre class="src src-bash">sudo usermod -aG docker $USER
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org76233c5" class="outline-3">
-<h3 id="org76233c5">加速源</h3>
-<div class="outline-text-3" id="text-org76233c5">
+<div id="outline-container-org52436f7" class="outline-3">
+<h3 id="org52436f7">加速源</h3>
+<div class="outline-text-3" id="text-org52436f7">
 <p>
 编辑 <code>/etc/docker/daemon.json</code> 加入<br>
 </p>
@@ -65,9 +65,9 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orge48f7b2" class="outline-2">
-<h2 id="orge48f7b2">拉取镜像</h2>
-<div class="outline-text-2" id="text-orge48f7b2">
+<div id="outline-container-orgab131e6" class="outline-2">
+<h2 id="orgab131e6">拉取镜像</h2>
+<div class="outline-text-2" id="text-orgab131e6">
 <div class="org-src-container">
 <pre class="src src-bash">docker pull nginx
 docker pull mysql:5.6
@@ -78,9 +78,9 @@ docker pull phpmyadmin/phpmyadmin
 </div>
 </div>
 </div>
-<div id="outline-container-org943cda2" class="outline-2">
-<h2 id="org943cda2">创建项目</h2>
-<div class="outline-text-2" id="text-org943cda2">
+<div id="outline-container-orgf88a56e" class="outline-2">
+<h2 id="orgf88a56e">创建项目</h2>
+<div class="outline-text-2" id="text-orgf88a56e">
 <div class="org-src-container">
 <pre class="src src-bash">mkdir -p ~/webstack/php-develop/nginx/www/
 mkdir -p ~/webstack/php-develop/nginx/conf/conf.d/
@@ -88,9 +88,9 @@ cd ~/webstack/php-develop/nginx/www/
 </pre>
 </div>
 </div>
-<div id="outline-container-org89a9ec6" class="outline-3">
-<h3 id="org89a9ec6">安装tp框架</h3>
-<div class="outline-text-3" id="text-org89a9ec6">
+<div id="outline-container-orgbf5e8d7" class="outline-3">
+<h3 id="orgbf5e8d7">安装tp框架</h3>
+<div class="outline-text-3" id="text-orgbf5e8d7">
 <div class="org-src-container">
 <pre class="src src-bash">docker run --rm --interactive --tty \
 --volume $PWD:/app \
@@ -100,9 +100,9 @@ composer create-project topthink/think tp6
 </div>
 </div>
 </div>
-<div id="outline-container-org28ebd5c" class="outline-2">
-<h2 id="org28ebd5c">启动容器</h2>
-<div class="outline-text-2" id="text-org28ebd5c">
+<div id="outline-container-org7481c27" class="outline-2">
+<h2 id="org7481c27">启动容器</h2>
+<div class="outline-text-2" id="text-org7481c27">
 <div class="org-src-container">
 <pre class="src src-bash">docker run --name php-fpm -v ~/webstack/php-develop/nginx/www:/www -d php:7.4-fpm
 docker run --name nginx -p 8082:80 -d \
@@ -116,27 +116,27 @@ docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=youpasswd -d mysql:5
 </div>
 </div>
 </div>
-<div id="outline-container-org7eebb63" class="outline-2">
-<h2 id="org7eebb63">phpMyAdmin</h2>
-<div class="outline-text-2" id="text-org7eebb63">
+<div id="outline-container-org62dc045" class="outline-2">
+<h2 id="org62dc045">phpMyAdmin</h2>
+<div class="outline-text-2" id="text-org62dc045">
 <div class="org-src-container">
 <pre class="src src-bash">docker run --name phpmyadmin -p 8083:80 --link mysql:db -d phpmyadmin/phpmyadmin:latest
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org2f23de1" class="outline-2">
-<h2 id="org2f23de1">容器停止后的启动顺序</h2>
-<div class="outline-text-2" id="text-org2f23de1">
+<div id="outline-container-org2144033" class="outline-2">
+<h2 id="org2144033">容器停止后的启动顺序</h2>
+<div class="outline-text-2" id="text-org2144033">
 <p>
 <code>docker stop phpmyadmin mysql nginx php-fpm</code><br>
 <code>php-fpm</code> -&gt; <code>nginx</code> -&gt; <code>mysql</code> -&gt; <code>phpmyadmin</code><br>
 </p>
 </div>
 </div>
-<div id="outline-container-org2a3fea0" class="outline-2">
-<h2 id="org2a3fea0">TL;DR</h2>
-<div class="outline-text-2" id="text-org2a3fea0">
+<div id="outline-container-org84fe8f5" class="outline-2">
+<h2 id="org84fe8f5">TL;DR</h2>
+<div class="outline-text-2" id="text-org84fe8f5">
 <p>
 <span class="underline">极度讨厌Python，所以不会使用docker compose，即使迫不得已也不会让它运行在宿主机</span><br>
 </p>
